@@ -1,3 +1,4 @@
+#!/usr/bin/node
 // Write a script that reads and prints the content of a file.
 
 // - The first argument is the file path
@@ -12,6 +13,7 @@ const filePath = process.argv[2];
 fs.readFile(filePath, 'utf-8', (err, data) => {
   if (err) {
     console.error(err);
+    return;
   } else {
     console.log(data);
   }
