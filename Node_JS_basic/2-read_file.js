@@ -1,30 +1,26 @@
-// 2-read_file.js
+// // 2-read_file.js
 
 const fs = require('fs');
-const path = require('path');
-const csv = require('csv-parser');
 
-function countStudents(filePath) {
-  const fullPath = path.resolve(filePath);
-  const students = [];
-
+function countStudents(path) {
   try {
-    fs.createReadStream(fullPath).pipe(csv()).on('data', row => {
-        students.push(row);
-      })
-      .on('end', () => {
-        console.log('Number of students:', students.length);
+    const data = fs.readFileSync(path, 'utf8');
+    const lines = data.split('\n');
+    const students = lines.slice(1).filter(line => line).map(line => line.split(','));
+    const fields = {};
 
-        const fields = ['CS', 'SWE'];
-        fields.forEach(field => {
-          const fieldStudents = students.filter(student => student.field === field);
-          console.log(
-            `Number of students in ${field}: ${fieldStudents.length}. List: ${fieldStudents
-              .map(student => student.firstname)
-              .join(', ')}`
-          );
-        });
-      });
+    for (const student of students) {
+      const field = student[3];
+      if (!fields[field]) {
+        fields[field] = [];
+      }
+      fields[field].push(student[0]);
+    }
+
+    console.log(`Number of students: ${students.length}`);
+    for (const field in fields) {
+      console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
+    }
   } catch (err) {
     throw new Error('Cannot load the database');
   }
