@@ -17,10 +17,10 @@ async function countStudents(path) {
         }
         fields[field].push(student[0]);
       }
-      let output = `Number of students: ${students.length}\n`;
+      let output = `Number of students: ${students.length}`;
       for (const field in fields) {
         if (Object.prototype.hasOwnProperty.call(fields, field)) {
-          output += `Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}\n`;
+          output += `Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`;
         }
       }
       return output;
@@ -38,7 +38,7 @@ const app = http.createServer((req, res) => {
     res.end();
   } else if (reqUrl === '/students') {
     const path = process.argv[2];
-    res.write('This is the list of our students\n');
+    res.write('This is the list of our students');
     countStudents(path)
       .then((data) => {
         res.write(data);
