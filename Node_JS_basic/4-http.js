@@ -2,15 +2,9 @@
 
 const app = require('http');
 
-const hostname = 'localhost';
-const port = 1245;
-
 const server = app.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('content-Type', 'test/plain');
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.end('Hello Holberton School!');
 });
 
-server.listen(port, hostname, () => {
-  console.log(`server running at http://${hostname}:${port}/`);
-});
+server.listen(1245);
