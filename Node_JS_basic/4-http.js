@@ -1,10 +1,12 @@
 // 4-http.js
 
-const app = require('http');
+const http = require('http');
 
-const server = app.createServer((req, res) => {
+const app = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hello Holberton School!');
+  res.end('Hello Holberton School!\n');
 });
 
-server.listen(1245);
+app.listen(1245);
+
+module.exports = app;
